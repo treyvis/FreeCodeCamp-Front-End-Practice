@@ -46,7 +46,18 @@ function winCheck(){
 		}
 	}
 
-	//Checking diagnol for win
+	//Checking diagnols for win
+	var topDiagonal = "";
+	var bottomDiagonal = "";
+	for (i = 0; i < 3; i++){
+		topDiagonal += gameBoard[i][i];
+		bottomDiagonal += gameBoard[2 - i][i];
+	}
+	if (topDiagonal === xWin || bottomDiagonal === xWin){
+		return "X";
+	} else if(topDiagonal === oWin || bottomDiagonal === oWin){
+		return "O";
+	}
 }
 
 /*
@@ -57,5 +68,13 @@ markBoard(1,2,"O");
 markBoard(0,1,"O");
 markBoard(1,1,"O");
 markBoard(2,1,"O");
+
+markBoard(0,0,"O");
+markBoard(1,1,"O");
+markBoard(2,2,"O");
+
+markBoard(2,0,"X");
+markBoard(1,1,"X");
+markBoard(0,2,"X");
 
 */
