@@ -56,11 +56,18 @@ function equal(){
 }
 
 function clear(){
-
+	if (input !== "") {
+		input = "";
+	} else if (formula !== "" && operators.indexOf(formula[formula.length - 1]) !== -1) {
+		formula = formula.slice(0, formula.length - 1);
+	} else {
+		formula = "";
+	}
 }
 
 function clearAll(){
-	
+	input = "";
+	formula = "";
 }
 
 /*
