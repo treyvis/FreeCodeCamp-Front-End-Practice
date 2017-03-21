@@ -1,8 +1,13 @@
 var gameBoard = [[" "," "," "],
 				 [" "," "," "],
 				 [" "," "," "]];
+var userMarkType = "";
+var computerMarkType = "";
 
-function resetBoard() {
+console.log("Pick 'X' or 'O' to get started.");
+
+
+function resetGame() {
 	for (i = 0; i < 3; i++){
 		//i for row
 		for (j = 0; j < 3; j++){
@@ -10,10 +15,30 @@ function resetBoard() {
 			gameBoard[i][j] = " ";
 		}
 	}
+	userMarkType = "";
+	computerMarkType = "";
+	console.log("The game has been reset. Select your mark type.");
 };
 
+function setUserMarkType(mark){
+	if (mark === "X") {
+		userMarkType = "X";
+		computerMarkType = "O";
+		console.log("You're up!");
+	} else if (mark === "O") {
+		userMarkType = "O";
+		computerMarkType = "X";
+		console.log("Alright, computer goes first.");
+		computerRound();
+	}
+}
+
 function markBoard(row,column, mark){
-	gameBoard[row][column] = mark;
+	if (gameBoard[row][column] === " "){
+		gameBoard[row][column] = mark;
+		return true;
+	}
+		return false;
 }
 
 function winCheck(){
@@ -58,6 +83,47 @@ function winCheck(){
 	} else if(topDiagonal === oWin || bottomDiagonal === oWin){
 		return "O";
 	}
+}
+
+function computerRound(){
+	var markPlaced = false;
+	while (!markPlaced){
+		var i = Math.floor(Math.random() * 3);
+		var j = Math.floor(Math.random() * 3);
+		markPlaced = markBoard(i,j,computerMarkType);
+		if (markPlaced) {
+			console.log("Computer marked: " + i + "," + j + ".");
+		}
+	}
+	var winner = winCheck();
+	if (winner) {
+		endGame(winner);
+	} else {
+		console.log("Your turn.");
+	}
+}
+
+function userRound(row, column){
+	if (markBoard(row, column, userMarkType)){
+		var winner = winCheck();
+		if(winCheck()){
+			endGame(winner);
+		} else {
+			console.log("User marked: " + row + "," + column + ". Computer's turn.");
+			computerRound();
+		}
+	} else {
+		console.log("Sorry, that's already been marked. Try again.");
+	}
+}
+
+function endGame(winningMark){
+	if (winningMark === userMarkType) {
+		console.log("Congratulations! You've won- let's play again.");
+	} else {
+		console.log("Looks like the computer got you. Better luck next time.");
+	}
+	resetGame();
 }
 
 /*
