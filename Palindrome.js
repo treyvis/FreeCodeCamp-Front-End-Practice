@@ -15,9 +15,6 @@ function palindrome(str) {
 	for (i in stringArray) {
 		var j = stringArray.length - i - 1;
 
-		console.log(stringArray[i]);
-		console.log(stringArray[j]);
-
 		if (stringArray[i] !== stringArray[j]) {
 			return false;
 		}

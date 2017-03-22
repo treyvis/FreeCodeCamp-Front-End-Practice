@@ -1,5 +1,5 @@
 function factorialize(num) {
-	if (num <= 0) return;
+	if (num < 0) return;
 
 	factorializeInt = 1;
 
