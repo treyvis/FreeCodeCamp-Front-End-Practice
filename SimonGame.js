@@ -57,7 +57,7 @@ function SimonGame(){
 				startGame();
 			}
 		}
-	}
+	};
 
 	function displayColors(){
 		var colorIterator = 0;
