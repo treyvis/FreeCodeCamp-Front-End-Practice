@@ -1,0 +1,22 @@
+.main-calc {
+	max-width: 500px;
+    margin: auto;
+}
+
+.btn {
+	display: block;
+	width: 100%;
+}
+
+.col-md-3 {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.col-md-6 {
+	padding: 0px 5px;
+}
+
+.row {
+	padding: 5px 10px;
+}
