@@ -5,27 +5,31 @@ function TicTacToe(){
 	var userMarkType = "";
 	var computerMarkType = "";
 
-	console.log("Pick 'X' or 'O' to get started.");
-
-
-	function resetGame() {
+	this.resetGame = function () {
 		for (var i = 0; i < 3; i++){
-			//i for row
+			
 			for (var j = 0; j < 3; j++){
-				//j for column
+				
 				gameBoard[i][j] = " ";
+				$("#" + i + j).html("");
 			}
 		}
 		userMarkType = "";
 		computerMarkType = "";
 		console.log("The game has been reset. Select your mark type.");
+		setMessage("The game has been reset. Select your mark type.");
+		$(".mark-selection").css("display","block");
+		$(".board-container").css("display","none");
 	};
 
 	this.setUserMarkType = function (mark){
+		$(".mark-selection").css("display","none");
+		$(".board-container").css("display","block");
 		if (mark === "X") {
 			userMarkType = "X";
 			computerMarkType = "O";
 			console.log("You're up!");
+			setMessage("You're up!");
 		} else if (mark === "O") {
 			userMarkType = "O";
 			computerMarkType = "X";
@@ -37,6 +41,7 @@ function TicTacToe(){
 	function markBoard(row,column, mark){
 		if (gameBoard[row][column] === " "){
 			gameBoard[row][column] = mark;
+			$("#" + row + column).html(mark);
 			return true;
 		}
 			return false;
@@ -101,6 +106,7 @@ function TicTacToe(){
 			endGame(winner);
 		} else {
 			console.log("Your turn.");
+			setMessage("Computer marked board. Your turn.");
 		}
 	}
 
@@ -115,44 +121,36 @@ function TicTacToe(){
 			}
 		} else {
 			console.log("Sorry, that's already been marked. Try again.");
+			setMessage("Sorry, that's already been marked. Try again.");
 		}
 	};
 
 	function endGame(winningMark){
 		if (winningMark === userMarkType) {
 			console.log("Congratulations! You've won- let's play again.");
+			setMessage("Congratulations! You've won- let's play again.");
 		} else {
 			console.log("Looks like the computer got you. Better luck next time.");
+			setMessage("Looks like the computer got you. Better luck next time.");
 		}
-		resetGame();
+	}
+
+	function setMessage(message){
+		$(".message").html(message);
 	}
 }
-
 var game;
-
 $(document).ready(function(){
 	game = new TicTacToe();
+	$(".markers").click(function(){
+		game.setUserMarkType($(this).html());
+	});
 	$(".board").click(function(){
+		game.userRound($(this).attr("row"),$(this).attr("column"));
 		console.log($(this).attr("row"));
 		console.log($(this).attr("column"));
 	});
+	$(".reset").click(function(){
+		game.resetGame();
+	});
 });
-
-/*
-markBoard(1,0,"O");
-markBoard(1,1,"O");
-markBoard(1,2,"O");
-
-markBoard(0,1,"O");
-markBoard(1,1,"O");
-markBoard(2,1,"O");
-
-markBoard(0,0,"O");
-markBoard(1,1,"O");
-markBoard(2,2,"O");
-
-markBoard(2,0,"X");
-markBoard(1,1,"X");
-markBoard(0,2,"X");
-
-*/
