@@ -39,10 +39,12 @@ function PomodoroClock(){
 	this.changeTimeStart = {
 		"increment": function(){
 			timeStart += 60;
+			updateStartView();
 		},
 		"decrement": function(){
 			if (timeStart != 0){
 				timeStart -= 60;
+				updateStartView();
 			}
 		}
 	};
@@ -74,6 +76,10 @@ function PomodoroClock(){
 	function updateTimerView(){
 		$(".well").html(timeFormat(currentTimer));
 	}
+
+	function updateStartView(){
+		$(".startTime").html(timeFormat(timeStart));
+	}
 }
 
 var clock;
@@ -91,5 +97,11 @@ $( document ).ready(function() {
     });
     $(".reset").click(function(){
     	clock.reset();
+    });
+    $(".decrement").click(function(){
+    	clock.changeTimeStart.decrement();
+    });
+    $(".increment").click(function(){
+    	clock.changeTimeStart.increment();
     });
 });
