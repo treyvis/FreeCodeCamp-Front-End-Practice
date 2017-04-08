@@ -15,9 +15,11 @@ function PomodoroClock(){
 	function timerCountDown(){
 		if(currentTimer > 0){
 			console.log(timeFormat(currentTimer));
+			updateTimerView();
 			currentTimer--;
 		} else {
 			console.log(timeFormat(currentTimer));
+			updateTimerView();
 			console.log("Times up!");
 			clearInterval(countDown);
 		}
@@ -66,5 +68,28 @@ function PomodoroClock(){
 	this.reset = function(){
 		this.pause();
 		currentTimer = timeStart;
+		updateTimerView();
 	};
+
+	function updateTimerView(){
+		$(".well").html(timeFormat(currentTimer));
+	}
 }
+
+var clock;
+
+$( document ).ready(function() {
+    clock = new PomodoroClock();
+    $(".start").click(function(){
+    	clock.startTimer();
+    });
+    $(".pause").click(function(){
+    	clock.pause();
+    });
+    $(".resume").click(function(){
+    	clock.resume();
+    });
+    $(".reset").click(function(){
+    	clock.reset();
+    });
+});
