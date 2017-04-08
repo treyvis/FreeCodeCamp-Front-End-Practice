@@ -1,6 +1,5 @@
-//Promodoro Clock
 function PomodoroClock(){
-	//Variables
+
 	var timeStart = 1500; //Time in seconds
 	var currentTimer = 0;
 	var countDown;
@@ -32,8 +31,6 @@ function PomodoroClock(){
 		return minutes + ":" + seconds;
 	}
 
-	//Increment Promodoro Time
-
 	this.changeTimeStart = {
 		"increment": function(){
 			timeStart += 60;
@@ -47,23 +44,17 @@ function PomodoroClock(){
 		}
 	};
 
-	//Pause Time
-
 	this.pause = function(){
 		if (countDown != undefined){
 			clearInterval(countDown);
 		}
 	};
 
-	//Resume
-
 	this.resume = function(){
 		if (currentTimer != 0){
 			countDown = setInterval(timerCountDown, 1000);
 		}
 	};
-
-	//Reset Time
 
 	this.reset = function(){
 		this.pause();

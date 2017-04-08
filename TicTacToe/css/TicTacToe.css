@@ -1,0 +1,23 @@
+.container {
+	max-width: 500px;
+}
+
+.row-0, .row-1 {
+	border-bottom: 2px solid black;
+}
+
+.column-0, .column-1 {
+	border-right: 2px solid black;
+}
+
+.well {
+	font-size: 24px;
+}
+
+.board {
+	padding: 15px;
+}
+
+.board-container {
+	display: none;
+}
