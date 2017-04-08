@@ -14,11 +14,9 @@ function PomodoroClock(){
 
 	function timerCountDown(){
 		if(currentTimer > 0){
-			console.log(timeFormat(currentTimer));
 			updateTimerView();
 			currentTimer--;
 		} else {
-			console.log(timeFormat(currentTimer));
 			updateTimerView();
 			console.log("Times up!");
 			clearInterval(countDown);
@@ -74,7 +72,11 @@ function PomodoroClock(){
 	};
 
 	function updateTimerView(){
-		$(".well").html(timeFormat(currentTimer));
+		if (currentTimer === 0){
+			$(".well").html("Time is up!");
+		} else {
+			$(".well").html(timeFormat(currentTimer));
+		}
 	}
 
 	function updateStartView(){
