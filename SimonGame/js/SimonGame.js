@@ -41,10 +41,12 @@ function SimonGame(){
 
 	function getNewColor(){
 		colorArray.push(colors[(Math.floor(Math.random() * 4))]);
+		$(".stepCount").html(colorArray.length);
 	}
 
 	this.submitColor = function (color){
 		if (color && colorArray[currentStep] && colorArray[currentStep] === color){
+			sounds[color].play();
 			if (colorArray.length === 20){
 				console.log("Congratulations, you win!");
 				startGame();
@@ -92,6 +94,9 @@ $(document).ready(function(){
     });
     $(".start").click(function(){
     	game.startGame();
+    });
+    $(".color").click(function(){
+    	game.submitColor($(this).html());
     });
 });
 
