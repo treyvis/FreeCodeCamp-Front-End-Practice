@@ -8,18 +8,24 @@ function SimonGame(){
 	var colors = ["Green","Red","Yellow","Blue"];
 
 	//Audio Variables
-	for(i in colors) {
+	for(var i in colors) {
 		var ref = parseInt(i) + 1;
 		sounds[colors[i]] = document.createElement("AUDIO");
-		sounds[colors[i]]
-			.setAttribute("src",
-			"https://s3.amazonaws.com/freecodecamp/simonSound" + ref + ".mp3");
+		sounds[colors[i]].src = "https://s3.amazonaws.com/freecodecamp/simonSound" + ref + ".mp3";
 		document.body.appendChild(sounds[colors[i]]);
 	}
 
 	//Functions
 	this.powerSwitch = function(){
 		onSwitch = !onSwitch;
+		if(onSwitch) {
+			$(".stepCount").html("0");
+			$(".on").html("Off");
+		} else {
+			$(".stepCount").html("--");
+			$(".on").html("On");
+		}
+		
 	};
 
 	function strictSwitch(){
@@ -64,16 +70,30 @@ function SimonGame(){
 		var colorsTimer = setInterval(showColor,1000);
 
 		function showColor(){
+			$(".color").css("opacity","0.7");
 			if (colorArray.length === colorIterator){
 				clearInterval(colorsTimer);
 			} else {
 				console.log(colorArray[colorIterator]);
+				$("#" + colorArray[colorIterator].toLowerCase()).css("opacity","1");
 				sounds[colorArray[colorIterator]].play();
 				colorIterator++;
 			}
 		}
 	}
 }
+
+var game;
+
+$(document).ready(function(){
+    game = new SimonGame();
+    $(".on").click(function(){
+    	game.powerSwitch();
+    });
+    $(".start").click(function(){
+    	game.startGame();
+    });
+});
 
 
 
