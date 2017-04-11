@@ -3,7 +3,6 @@ function SimonGame(){
 	var onSwitch = false;
 	var colorArray = [];
 	var currentStep = 0;
-	var secondChance = true;
 	var strict = false;
 	var sounds = {};
 	var colors = ["Green","Red","Yellow","Blue"];
@@ -20,17 +19,24 @@ function SimonGame(){
 	this.powerSwitch = function(){
 		onSwitch = !onSwitch;
 		if(onSwitch) {
-			$(".stepCount").html("0");
+			$(".stepCount").html("Hello! Press 'Start' to play :)");
 			$(".on").html("Off");
 		} else {
 			$(".stepCount").html("--");
 			$(".on").html("On");
+			colorArray = [];
+			currentStep = 0;
 		}
 		
 	};
 
-	function strictSwitch(){
-		secondChance = !secondChance;
+	this.strictSwitch = function(){
+		strict = !strict;
+		if (strict) {
+			$(".strict").html("Disable Strict");
+		} else {
+			$(".strict").html("Enable Strict");
+		}
 	}
 
 	this.startGame = function(){
@@ -49,8 +55,7 @@ function SimonGame(){
 		if (color && colorArray[currentStep] && colorArray[currentStep] === color){
 			sounds[color].play();
 			if (colorArray.length === 20){
-				console.log("Congratulations, you win!");
-				startGame();
+				$(".stepCount").html("Congratulations! You win! Press 'Start' to play again.");
 			} else if(currentStep === colorArray.length - 1) {
 				getNewColor();
 				currentStep = 0;
@@ -70,7 +75,12 @@ function SimonGame(){
 					$(".stepCount").html(colorArray.length);
 				},1000);
 			} else	{
-				startGame();
+				$(".stepCount").html("You Lose! Press 'Start' to play again.");
+				for(var i in sounds){
+					sounds[i].play();
+				}
+				colorArray = [];
+				currentStep = 0;
 			}
 		}
 	};
@@ -84,7 +94,6 @@ function SimonGame(){
 			if (colorArray.length === colorIterator){
 				clearInterval(colorsTimer);
 			} else {
-				console.log(colorArray[colorIterator]);
 				$("#" + colorArray[colorIterator].toLowerCase()).css("opacity","1");
 				sounds[colorArray[colorIterator]].play();
 				colorIterator++;
@@ -105,6 +114,9 @@ $(document).ready(function(){
     });
     $(".color").click(function(){
     	game.submitColor($(this).html());
+    });
+    $(".strict").click(function(){
+    	game.strictSwitch();
     });
 });
 
