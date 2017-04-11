@@ -4,6 +4,7 @@ function SimonGame(){
 	var colorArray = [];
 	var currentStep = 0;
 	var secondChance = true;
+	var strict = false;
 	var sounds = {};
 	var colors = ["Green","Red","Yellow","Blue"];
 
@@ -58,9 +59,16 @@ function SimonGame(){
 				currentStep++;
 			}
 		} else {
-			if (secondChance === true){
+			if (strict === false){
 				currentStep = 0;
-				secondChance = false;
+				for(var i in sounds){
+					sounds[i].play();
+				}
+				$(".stepCount").html("Wrong! Try again.");
+				displayColors();
+				setTimeout(function(){
+					$(".stepCount").html(colorArray.length);
+				},1000);
 			} else	{
 				startGame();
 			}
